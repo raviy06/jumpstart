@@ -13,7 +13,7 @@ def add_template_repository_to_source_path
     at_exit { FileUtils.remove_entry(tempdir) }
     git clone: [
       "--quiet",
-      "https://github.com/excid3/jumpstart.git",
+      "https://github.com/raviy06/jumpstart.git",
       tempdir
     ].map(&:shellescape).join(" ")
 
@@ -54,6 +54,16 @@ def add_gems
   gem 'sidekiq', '~> 5.2', '>= 5.2.5'
   gem 'sitemap_generator', '~> 6.0', '>= 6.0.1'
   gem 'whenever', require: false
+  gem 'dry-configurable', '~> 0.1.0'
+  gem "awesome_print"
+  gem 'httparty'
+  gem 'dotenv-rails'
+  gem 'haml'
+  gem "haml-rails", "~> 1.0"
+  gem 'toastr-rails'
+  gem "uuidtools"
+  gem 'kaminari'
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw], group: [:development, :test]
 
   if rails_5?
     gsub_file "Gemfile", /gem 'sqlite3'/, "gem 'sqlite3', '~> 1.3.0'"
@@ -71,6 +81,10 @@ def set_application_name
 
   # Announce the user where he can change the application name in the future.
   puts "You can change application name inside: ./config/application.rb"
+end
+
+def add_kaminari
+  generate 'kaminari:config'
 end
 
 def add_users
@@ -115,6 +129,11 @@ def add_webpack
   # Our application layout already includes the javascript_pack_tag,
   # so we don't need to inject it
   rails_command 'webpacker:install'
+end
+
+def add_haml
+  generate 'haml:application_layout convert'
+  rails_command 'haml:erb2haml'
 end
 
 def add_javascript
@@ -266,6 +285,7 @@ after_bundle do
   copy_templates
   add_whenever
   add_sitemap
+  add_haml
 
   # Migrate
   rails_command "db:create"
