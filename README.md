@@ -4,10 +4,6 @@ It's like Laravel Spark, for Rails. All your Rails apps should start off with a 
 
 **Note:** Requires Rails 5.2 or higher
 
-Want to see how it works? Check out [the Jumpstart walkthrough video](https://www.youtube.com/watch?v=ssOZpISfIfI):
-
-[![Jumpstart Ruby on Rails Template Walkthrough](https://i.imgur.com/pZDPbc7l.png)](https://www.youtube.com/watch?v=ssOZpISfIfI)
-
 ## Getting Started
 
 Jumpstart is a Rails template, so you pass it in as an option when creating a new app.
